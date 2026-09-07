@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Five Dysfunctions of a Team — A Field Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F5F0;
+    --ink:#1B2330;
+    --ink-soft:#54606F;
+    --hairline:#E4E0D6;
+    --hero:#141B2B;
+    --hero-soft:#9AA6BC;
+
+    --trust:#0E7C7B;
+    --conflict:#D2661F;
+    --commit:#524A97;
+    --account:#B4344F;
+    --results:#CF9418;
+
+    --maxw:820px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    font-size:17px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  p{margin:0 0 1.05em;}
+  strong{font-weight:600;}
+  em{font-style:italic;}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--hero);
+    color:#fff;
+    padding:88px 0 76px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(1200px 500px at 50% -12%, rgba(207,148,24,.16), transparent 60%);
+    pointer-events:none;
+  }
+  .hero .wrap{position:relative;z-index:1;}
+  .kicker{
+    font-size:14px;letter-spacing:.02em;color:var(--hero-soft);
+    margin:0 0 18px;font-weight:500;
+  }
+  .hero h1{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:600;
+    font-size:clamp(38px,7vw,64px);
+    line-height:1.02;
+    letter-spacing:-0.01em;
+    margin:0 0 20px;
+  }
+  .hero .lede{
+    font-size:clamp(18px,2.4vw,21px);
+    color:#E7EAF1;
+    max-width:60ch;
+    margin:0 0 8px;
+  }
+  .hero .lede.small{color:var(--hero-soft);font-size:16px;max-width:64ch;margin-top:18px;}
+
+  /* ---------- PYRAMID ---------- */
+  .pyramid{
+    margin:52px auto 6px;
+    max-width:560px;
+    display:flex;
+    flex-direction:column-reverse;
+    gap:7px;
+  }
+  .tier{
+    color:#fff;
+    border-radius:6px;
+    padding:15px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    box-shadow:0 8px 24px -14px rgba(0,0,0,.7);
+  }
+  .tier .num{
+    font-family:'Fraunces',serif;font-weight:600;font-size:15px;
+    opacity:.72;width:20px;flex:none;
+  }
+  .tier .pair{display:flex;flex-direction:column;line-height:1.2;}
+  .tier .bad{font-size:13px;opacity:.82;font-weight:500;}
+  .tier .good{font-family:'Fraunces',serif;font-weight:600;font-size:19px;}
+  .tier .val{font-size:12.5px;opacity:.8;text-align:right;max-width:44%;line-height:1.35;}
+  .t1{background:var(--trust);width:100%;}
+  .t2{background:var(--conflict);width:92%;margin-left:auto;margin-right:auto;}
+  .t3{background:var(--commit);width:83%;margin-left:auto;margin-right:auto;}
+  .t4{background:var(--account);width:73%;margin-left:auto;margin-right:auto;}
+  .t5{background:var(--results);width:62%;margin-left:auto;margin-right:auto;}
+  .pyramid-note{
+    text-align:center;color:var(--hero-soft);font-size:13.5px;margin-top:20px;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:66px 0;}
+  .band{border-top:1px solid var(--hairline);}
+  .part-label{
+    font-family:'Inter',sans-serif;font-size:13px;font-weight:600;
+    color:var(--ink-soft);margin:0 0 10px;
+  }
+  h2{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:clamp(28px,4.4vw,40px);
+    line-height:1.08;letter-spacing:-0.01em;margin:0 0 18px;
+  }
+  h3{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:600;font-size:22px;margin:0 0 8px;
+  }
+  .sub{color:var(--ink-soft);font-size:18px;max-width:64ch;}
+
+  /* ---------- TWO QUESTIONS ---------- */
+  .q-block{margin-top:34px;}
+  .q-block + .q-block{margin-top:26px;}
+  .q-num{
+    font-family:'Fraunces',serif;color:var(--trust);
+    font-weight:600;font-size:15px;margin:0 0 4px;
+  }
+
+  /* ---------- DYSFUNCTION ---------- */
+  .dys{padding:60px 0;border-top:1px solid var(--hairline);}
+  .dys-head{display:flex;align-items:baseline;gap:16px;margin-bottom:6px;}
+  .dys-index{
+    font-family:'Fraunces',serif;font-weight:600;
+    font-size:clamp(46px,8vw,68px);line-height:.9;
+    color:var(--accent);flex:none;
+  }
+  .dys-titles .from{font-size:14px;color:var(--ink-soft);font-weight:500;}
+  .dys-titles h2{margin:2px 0 0;color:var(--ink);}
+  .dys-titles h2 .arrow{color:var(--accent);}
+  .lead-in{
+    font-size:19px;line-height:1.55;margin:22px 0 26px;
+    padding-left:18px;border-left:3px solid var(--accent);
+  }
+  .move{margin:22px 0;}
+  .move-tag{
+    font-family:'Inter',sans-serif;font-weight:600;font-size:13px;
+    color:var(--accent);margin:0 0 4px;
+  }
+  .tools{
+    margin-top:24px;background:#fff;border:1px solid var(--hairline);
+    border-radius:12px;padding:22px 24px;
+  }
+  .tools h4{
+    margin:0 0 14px;font-family:'Inter',sans-serif;font-size:13px;
+    font-weight:600;color:var(--ink-soft);
+  }
+  .tool{margin:0 0 16px;}
+  .tool:last-child{margin-bottom:0;}
+  .tool .name{font-weight:600;color:var(--accent);}
+  .insight{
+    margin-top:26px;
+    font-family:'Fraunces',Georgia,serif;
+    font-size:clamp(20px,3vw,25px);line-height:1.4;
+    color:var(--ink);
+  }
+  .insight::before{content:"“";color:var(--accent);font-size:1.1em;line-height:0;}
+  .insight::after{content:"”";color:var(--accent);}
+
+  /* ---------- FIELD GUIDE Q&A ---------- */
+  .qa{margin-top:12px;}
+  .qa-item{padding:22px 0;border-top:1px solid var(--hairline);}
+  .qa-item:first-child{border-top:none;}
+  .qa-q{font-family:'Fraunces',serif;font-weight:600;font-size:19px;margin:0 0 8px;}
+  .qa-a{margin:0;color:var(--ink);}
+  .qa-a p{margin:0 0 .7em;}
+  .qa-a p:last-child{margin-bottom:0;}
+
+  .obj-q{color:var(--conflict);}
+  .obs-q{color:var(--account);}
+  .cq-q{color:var(--commit);}
+
+  /* ---------- CLOSING ---------- */
+  .close{background:var(--hero);color:#fff;padding:72px 0 80px;}
+  .close h2{color:#fff;}
+  .oneline{list-style:none;padding:0;margin:26px 0 0;}
+  .oneline li{
+    padding:15px 0;border-top:1px solid rgba(255,255,255,.12);
+    display:flex;gap:16px;align-items:baseline;
+  }
+  .oneline li:last-child{border-bottom:1px solid rgba(255,255,255,.12);}
+  .oneline .word{
+    font-family:'Fraunces',serif;font-weight:600;font-size:18px;
+    width:150px;flex:none;
+  }
+  .oneline .desc{color:#D8DDE7;}
+  .w1{color:#5FBFBE;} .w2{color:#EC9257;} .w3{color:#9990D6;} .w4{color:#E5697F;} .w5{color:#E9BE52;}
+  .final{
+    font-family:'Fraunces',serif;font-size:clamp(20px,3vw,26px);
+    line-height:1.45;margin:38px 0 0;max-width:60ch;
+  }
+
+  .foot{padding:30px 0 60px;color:var(--ink-soft);font-size:13.5px;}
+  .foot p{margin:0;max-width:70ch;}
+
+  @media (max-width:560px){
+    body{font-size:16px;}
+    .tier .val{display:none;}
+    .oneline .word{width:110px;font-size:16px;}
+    .dys-head{gap:12px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">A field guide, distilled — after Patrick Lencioni's model</p>
+    <h1>The Five Dysfunctions of a Team</h1>
+    <p class="lede">Building a great team is not complicated. It is simply hard. It can't be bought, and it can't be hired in from a famous business school — it runs on courage, honesty, and the willingness to keep showing up for one another.</p>
+    <p class="lede small">In an age where information is everywhere and everything changes overnight, teamwork is one of the last real advantages almost nobody has claimed. Here is how it's built — one layer at a time.</p>
+
+    <div class="pyramid" aria-hidden="false">
+      <div class="tier t1"><span class="num">1</span><span class="pair"><span class="bad">Absence of trust</span><span class="good">Trust</span></span><span class="val">Be vulnerable. Drop the armour.</span></div>
+      <div class="tier t2"><span class="num">2</span><span class="pair"><span class="bad">Fear of conflict</span><span class="good">Conflict</span></span><span class="val">Argue about ideas, openly.</span></div>
+      <div class="tier t3"><span class="num">3</span><span class="pair"><span class="bad">Lack of commitment</span><span class="good">Commitment</span></span><span class="val">Disagree, then fully commit.</span></div>
+      <div class="tier t4"><span class="num">4</span><span class="pair"><span class="bad">Avoidance of accountability</span><span class="good">Accountability</span></span><span class="val">Call each other out, peer to peer.</span></div>
+      <div class="tier t5"><span class="num">5</span><span class="pair"><span class="bad">Inattention to results</span><span class="good">Results</span></span><span class="val">Put the team's win above your own.</span></div>
+    </div>
+    <p class="pyramid-note">Each layer holds up the one above it. Build from the bottom, or the top falls.</p>
+  </div>
+</header>
+
+<!-- FOUNDATIONS -->
+<section class="band">
+  <div class="wrap">
+    <p class="part-label">Part I · Getting clear first</p>
+    <h2>Before you lift a finger, ask two questions</h2>
+    <p class="sub">Most team-building efforts are doomed before they begin — not because the ideas are wrong, but because two honest questions were never asked out loud.</p>
+
+    <div class="q-block">
+      <p class="q-num">Question 1</p>
+      <h3>Are we actually a team?</h3>
+      <p>A team is a small group — roughly three to twelve people — that shares real goals <em>and</em> shares the rewards and the responsibility for reaching them, with members willing to put the group ahead of their own agenda. A cluster of people who merely report to the same manager, with little true interdependence, is not a team. And that's completely fine. Plenty of non-teams win. What breaks people is pretending to be a team when you're not — it manufactures false expectations, and those curdle into frustration and resentment.</p>
+    </div>
+
+    <div class="q-block">
+      <p class="q-num">Question 2</p>
+      <h3>Are we ready for the heavy lifting?</h3>
+      <p>The rewards of a real team are enormous, but they can't be won without a genuine investment of time and emotional energy. Shortcuts and half-measures don't just stall a team — they can leave it worse than before. So go in clear-eyed. The good news: this rarely takes years. Done properly, a team makes real progress in weeks or months, and usually finds the work itself to be some of the most rewarding of their careers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DYSFUNCTION 1 -->
+<section class="dys band" style="--accent:var(--trust);">
+  <div class="wrap">
+    <div class="dys-head">
+      <span class="dys-index">01</span>
+      <div class="dys-titles">
+        <span class="from">Overcoming the absence of</span>
+        <h2>Trust <span class="arrow">— the foundation</span></h2>
+      </div>
+    </div>
+    <p class="lead-in">Everything starts here. Without trust, none of the four layers above it can hold weight — and the kind of trust a team needs is not what most people think it is.</p>
+
+    <p>On a team, trust is not the ability to predict what a colleague will do after years of working together. It's something rarer and braver: <strong>vulnerability-based trust</strong> — being comfortable enough to say "I was wrong," "I need help," "I'm not sure," or "you're better at this than I am," without calculating the cost first. When people stop protecting themselves, they stop wasting energy on politics and posturing, and that energy goes back into the work.</p>
+
+    <div class="move">
+      <p class="move-tag">Why it's so rare</p>
+      <p>Self-preservation is instinctive. Admitting weakness feels like handing someone a weapon. So the missing ingredient isn't <em>time</em> — teams together for years can stay guarded, while teams together for months can grow deep trust fast. The missing ingredient is <strong>courage</strong>, and it has to start with the leader. If the person in charge can't be honest about their own flaws, no one beneath them ever will be. One person who refuses to open up can quietly poison the whole group.</p>
+    </div>
+
+    <div class="move">
+      <p class="move-tag">The trap to name</p>
+      <p>The fundamental attribution error: we blame other people's bad behaviour on <em>who they are</em>, but our own on <em>the situation we were in</em>. Understanding where a colleague actually comes from replaces judgment with empathy — and that's exactly what trust is made of.</p>
+    </div>
+
+    <div class="tools">
+      <h4>Tools that build it</h4>
+      <div class="tool"><p><span class="name">Personal Histories.</span> Go around the room; each person shares where they grew up, how many kids were in their family, and the biggest challenge of their childhood. Low-risk, twenty minutes — yet people routinely learn things about colleagues they've sat beside for years. Small openings make bigger ones feel safe.</p></div>
+      <div class="tool"><p><span class="name">Behavioural profiling.</span> A shared, objective language for personality (many teams use the MBTI) makes it safe to name strengths and blind spots without it landing as an accusation. Keep it practical and tied to how the team actually works — then keep it alive, or it goes stale within a month.</p></div>
+    </div>
+
+    <p class="insight">The key ingredient in trust is not time. It is courage — and it is the leader who has to spend it first.</p>
+  </div>
+</section>
+
+<!-- DYSFUNCTION 2 -->
+<section class="dys" style="--accent:var(--conflict);">
+  <div class="wrap">
+    <div class="dys-head">
+      <span class="dys-index">02</span>
+      <div class="dys-titles">
+        <span class="from">Overcoming the fear of</span>
+        <h2>Conflict <span class="arrow">— the engine</span></h2>
+      </div>
+    </div>
+    <p class="lead-in">Trust exists to be spent. And the first thing a trusting team can finally afford is a good, honest fight.</p>
+
+    <p>The conflict that matters is <strong>productive and ideological</strong> — passionate, unfiltered debate about the issues that count, in genuine pursuit of the best answer. It's only possible on a bed of trust. Without trust, "conflict" turns into point-scoring and politics, or it migrates to the hallway after the meeting ends, where nothing gets resolved.</p>
+
+    <div class="move">
+      <p class="move-tag">Discomfort is the signal, not the problem</p>
+      <p>Even on the best teams, conflict is always at least a little uncomfortable. That's the tell that it's real. If no one is ever pushed outside their comfort zone, the team almost certainly isn't making its best decisions — it's just being polite.</p>
+    </div>
+
+    <div class="move">
+      <p class="move-tag">The continuum</p>
+      <p>Picture a line from <em>artificial harmony</em> (no conflict at all) to <em>mean-spirited personal attacks</em>. Nearly every team hugs the harmony end, terrified that a single step toward the middle leads to bloodshed. Aim for just left of centre — the maximum constructive conflict you can have before it turns destructive. You'll occasionally cross the line, and that's survivable. A team that recovers from a real blow-up walks away more confident it can withstand the next one — which, quietly, builds more trust.</p>
+    </div>
+
+    <div class="tools">
+      <h4>How a leader draws it out</h4>
+      <div class="tool"><p><span class="name">Set the norms.</span> Conflict styles differ by personality, culture, and upbringing. What matters isn't whether a team is loud or measured — it's whether people are holding back. Name everyone's style, agree on the rules of engagement, and hold to them.</p></div>
+      <div class="tool"><p><span class="name">Mine for conflict.</span> People avoid conflict even when they know it's needed. So the leader has to dig for the disagreements buried under the surface and put them on the table like the buried treasure they are.</p></div>
+      <div class="tool"><p><span class="name">Give real-time permission.</span> The moment a debate gets tense, interrupt — not to stop it, but to reassure people that this discomfort is exactly what's supposed to happen. It feels almost parental, and it works: people visibly relax and re-engage.</p></div>
+    </div>
+
+    <p class="insight">If people never push one another out of their comfort zone, they are almost certainly not making the best decisions for the team.</p>
+  </div>
+</section>
+
+<!-- DYSFUNCTION 3 -->
+<section class="dys" style="--accent:var(--commit);">
+  <div class="wrap">
+    <div class="dys-head">
+      <span class="dys-index">03</span>
+      <div class="dys-titles">
+        <span class="from">Overcoming the lack of</span>
+        <h2>Commitment <span class="arrow">— the decision</span></h2>
+      </div>
+    </div>
+    <p class="lead-in">Here's the counter-intuitive heart of it: commitment is not consensus. Waiting for everyone to agree is a recipe for mediocrity, delay, and quiet resentment.</p>
+
+    <p>Real commitment is the ability to <strong>disagree and commit</strong> — intelligent, driven people getting fully behind a decision <em>precisely because</em> they don't all naturally agree. It rests on two things working together:</p>
+
+    <div class="move">
+      <p class="move-tag">Buy-in</p>
+      <p>Honest emotional support for the call. The secret most leaders miss: people don't actually need to get their way. They need to feel <strong>heard, understood, and considered</strong>. Once every view is genuinely on the table, someone has to break the tie — and that's one of the most important jobs a leader has. Nineteen times out of twenty, people rally behind a decision that ran against their own recommendation, as long as they know their voice was in the room.</p>
+    </div>
+
+    <div class="move">
+      <p class="move-tag">Clarity</p>
+      <p>It is astonishing how a room full of smart people can talk for two hours and leave with three different ideas of what was decided. Buy-in means nothing if everyone commits to a different thing.</p>
+    </div>
+
+    <div class="tools">
+      <h4>Tools that lock it in</h4>
+      <div class="tool"><p><span class="name">Commitment clarification.</span> In the last five minutes of any meeting, ask the room: "So — what did we actually decide?" Write it on the board. The disagreements you thought were settled surface immediately, before the decision goes out the door.</p></div>
+      <div class="tool"><p><span class="name">Cascading communication.</span> Every leader relays the decisions to their own people within twenty-four hours — live, not by email. This does something sneaky and useful: no one wants to go announce a decision they secretly hate, so quiet objections come out <em>before</em> the meeting ends.</p></div>
+      <div class="tool"><p><span class="name">The thematic goal.</span> At any moment, everyone should know the single rallying priority for the team over the next few months, with supporting objectives beneath it — and the team owns those objectives <em>collectively</em>, not carved up by job title.</p></div>
+    </div>
+
+    <p class="insight">Most people don't need their idea to win. They need it to be heard, understood, and weighed — then they'll commit to whatever the team chooses.</p>
+  </div>
+</section>
+
+<!-- DYSFUNCTION 4 -->
+<section class="dys" style="--accent:var(--account);">
+  <div class="wrap">
+    <div class="dys-head">
+      <span class="dys-index">04</span>
+      <div class="dys-titles">
+        <span class="from">Overcoming the avoidance of</span>
+        <h2>Accountability <span class="arrow">— the pressure</span></h2>
+      </div>
+    </div>
+    <p class="lead-in">This is the one almost everyone flinches from — because it means telling a colleague, to their face, that they're falling short.</p>
+
+    <p>Accountability here means the willingness to call out a peer who isn't living up to the team's standards — on <strong>behaviour</strong> as much as results. And the most powerful form isn't the boss cracking the whip; it's <strong>peer-to-peer</strong>. The fear of letting down a teammate you respect motivates far more than any fear of punishment from above.</p>
+
+    <div class="move">
+      <p class="move-tag">But it has to be modelled</p>
+      <p>For peer accountability to take root, the leader must be willing to "enter the danger" — to step straight into the hard conversation. Most leaders find it easy to confront <em>results</em> and agonising to confront <em>behaviour</em> — yet behaviour is what goes wrong first. If the team sees the leader duck it, they'll duck it too.</p>
+    </div>
+
+    <div class="move">
+      <p class="move-tag">The reframe that unlocks it</p>
+      <p>People hate giving hard feedback, and the tightest teams are often the most reluctant — they don't want to spoil the warmth they've built. The argument that finally moves a caring person: staying silent isn't kindness. Withholding feedback is <strong>letting your teammate down personally</strong>. You're not protecting them; you're robbing them of the chance to improve.</p>
+    </div>
+
+    <div class="tools">
+      <h4>Tools that make it normal</h4>
+      <div class="tool"><p><span class="name">Team Effectiveness Exercise.</span> For every other member, each person names one biggest strength that helps the team and one biggest thing that can derail it. Go round out loud — leader first, so no one can hide behind defensiveness — fast enough that no one games it. The honesty is startling, and strangely, people leave flattered. Revisit it months later so nothing fades.</p></div>
+      <div class="tool"><p><span class="name">Meetings.</span> Open with a thirty-second "lightning round" — each person's top priorities this week — so everyone knows what everyone else is carrying, and keep a visible scoreboard of the team's goals in the room.</p></div>
+    </div>
+
+    <p class="insight">When teammates stop holding each other accountable, they don't stay close. They slowly lose respect for one another — and the warmth they were protecting fades anyway.</p>
+  </div>
+</section>
+
+<!-- DYSFUNCTION 5 -->
+<section class="dys" style="--accent:var(--results);">
+  <div class="wrap">
+    <div class="dys-head">
+      <span class="dys-index">05</span>
+      <div class="dys-titles">
+        <span class="from">Overcoming the inattention to</span>
+        <h2>Results <span class="arrow">— the whole point</span></h2>
+      </div>
+    </div>
+    <p class="lead-in">A team can trust, fight, commit, and hold each other accountable — and still lose. Because standing between any team and its results is the oldest force in human nature: the quiet voice that whispers <em>what about me?</em></p>
+
+    <p>Self-interest and self-preservation are natural. We look out for ourselves first, even ahead of the people we love. On a team, once that instinct takes hold in one person, it spreads like a disease — eroding accountability, then commitment, then conflict, and eventually even the trust the whole thing was built on. The only defence is to keep the collective result burning in everyone's line of sight.</p>
+
+    <div class="move">
+      <p class="move-tag">Why a scoreboard</p>
+      <p>Think of a football scoreboard. It doesn't show individual stats or clever nuance — it shows one unambiguous thing: are we winning, and how much time is left to change it. No quarterback whose team is down by fourteen gets to say "well, <em>my</em> numbers look great." A team scoreboard does the same job: it strips out interpretation and points everyone at the same finish line. And teams have an advantage over athletes — they usually get to <strong>design their own scoreboard</strong>, choosing what winning means.</p>
+    </div>
+
+    <div class="move">
+      <p class="move-tag">Choose something — and resist the fog</p>
+      <p>Market share? Client satisfaction? Revenue, profit, growth, key milestones? There are only two consistently wrong answers: <em>none of them</em>, and <em>all of them</em>. Pick one, maybe two, and rally around it. The seductive alternative is to measure success by feel — "is the CEO happy this month?", "I think we're doing okay", "did you see that analyst report?" Subjectivity is attractive precisely because it lets us move the goalposts. Commit early, commit publicly, review constantly — and don't drown people by measuring everything.</p>
+    </div>
+
+    <div class="move">
+      <p class="move-tag">The four distractions that pull people off the scoreboard</p>
+      <p><strong>1 · Ego.</strong> The deepest one, buried in every heart. As much as we want the team to win, some part of us wants to win as an individual first. On weak teams, people whose own area is doing fine stay cheerful while the team sinks. On strong teams, <em>no one is happy until everyone is succeeding</em> — because that's the only way the team wins.</p>
+      <p><strong>2 &amp; 3 · Career and money.</strong> Real, legitimate needs — mortgages, tuition, ambition. A great team doesn't pretend these away; it lets people name them openly, without shame. Admitting "I'm worried about my growth" is itself an act of vulnerability, and on a trusting team it's met with help, not suspicion. Left unspoken, it festers.</p>
+      <p><strong>4 · My department.</strong> The most subtle and dangerous, because good people wear it as a badge of honour — the "Team #1 Dilemma." Ask leaders honestly which comes first, the team they <em>lead</em> or the team they're a <em>member</em> of, and many choose the one below. But their own staff actually need them to make the leadership team their first team — because staff are the ones who bleed when their managers won't cooperate across the org. Treating a leadership team like the UN or Congress — lobbying for your own constituents instead of the whole — is a slow team suicide.</p>
+    </div>
+
+    <div class="tools">
+      <h4>The one tool</h4>
+      <div class="tool"><p><span class="name">The scoreboard.</span> Call it a dashboard or a radar screen — every team needs one simple, visible way to see whether it's winning right now. A handful of critical factors, mostly quantitative but with room for the team's own qualitative read, drawn from ongoing metrics plus the supporting objectives of the thematic goal. Beyond that, there's no special trick to results: the real tools are trust, conflict, commitment, and accountability, which clear the road to it.</p></div>
+    </div>
+
+    <p class="insight">On the strongest teams, self-worth is not individual but collective — people give up budget, headcount, and glory without flinching, because the only scoreboard that counts is the team's.</p>
+  </div>
+</section>
+
+<!-- FIELD GUIDE: COMMON QUESTIONS -->
+<section class="band">
+  <div class="wrap">
+    <p class="part-label">Part II · The field guide</p>
+    <h2>The questions every team asks</h2>
+    <p class="sub">The model is the easy part to admire and the hard part to live. These are the practical questions that come up the moment you actually try.</p>
+
+    <div class="qa">
+      <div class="qa-item"><p class="qa-q cq-q">How long does it take to build a team?</p><div class="qa-a"><p>There's no real number — a team is never quite "finished," the way a marriage isn't. Progress depends on how much time is set aside, how committed people are, how many there are, whether they're co-located, and how strong the leader is. Forced to answer: a new team can make substantial progress in two or three months with a couple of off-sites and regular time together — and dramatic progress is possible in just a few days.</p></div></div>
+
+      <div class="qa-item"><p class="qa-q cq-q">How many people should be on a team?</p><div class="qa-a"><p>Three to twelve. Most organisations err toward too many, treating a seat on the team as a reward rather than a strategic choice. Large teams make trust harder to build, and they quietly kill good decision-making: when a group gets big, people sense they won't get the floor back, so they switch to pure <em>advocacy</em> (stating positions) and abandon <em>inquiry</em> (asking to understand). Debate becomes lobbying.</p></div></div>
+
+      <div class="qa-item"><p class="qa-q cq-q">Will I have to remove someone to make progress?</p><div class="qa-a"><p>Removing people isn't part of the process — but here's the paradox: a leader's <em>willingness</em> to remove someone makes it far less likely they'll have to. When people know the leader will act for the good of the group, they're far more open to changing. When they know the leader never will, they dig in. Sometimes a swap is genuinely necessary, but usually not in the first six months.</p></div></div>
+
+      <div class="qa-item"><p class="qa-q cq-q">How much can a two-day off-site really do?</p><div class="qa-a"><p>A lot — new teams have built bonds that lasted years, and dysfunctional ones have cracked open issues that plagued them for years, all in a day and a half. But that progress is often painful and exhausting. A good off-site is intense, focused, and grounded in real operational issues — not golf, massages, and trust-falls.</p></div></div>
+
+      <div class="qa-item"><p class="qa-q cq-q">Should I bring in an outside facilitator?</p><div class="qa-a"><p>Only if you can find a genuinely good one — practical, trustworthy, skilful. The real benefit is that it frees the leader to take part <em>as a member</em> rather than running the room. And weigh the cost honestly: the price of losing and replacing one good team member dwarfs any facilitator's fee — before you even count the productivity and the lower stress.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FIELD GUIDE: OBJECTIONS -->
+<section>
+  <div class="wrap">
+    <h2>The objections you'll hear — and the answers</h2>
+    <p class="sub">Resistance usually arrives dressed as pragmatism. Beat it to the punch by naming it first.</p>
+
+    <div class="qa">
+      <div class="qa-item"><p class="qa-q obj-q">"We can't take two whole days out of the office!"</p><div class="qa-a"><p>Time is a team's most precious currency — more than money — so this is the most common objection, and sometimes a body-blow meant to kill the effort. Pre-empt it: show, up front, how much time is <em>already</em> being burned on politics, confusion, internal competition, and re-litigating the same issues. Take it off the table before anyone can put it there.</p></div></div>
+
+      <div class="qa-item"><p class="qa-q obj-q">"But we have real work to do!"</p><div class="qa-a"><p>Building the team <em>is</em> real work — it's the work of getting more done in less time. Measured in forty-eight-hour chunks, two days away looks like a loss. Measured over two weeks, three months, a year, the gain from working as a genuine team dwarfs it.</p></div></div>
+
+      <div class="qa-item"><p class="qa-q obj-q">"These touchy-feely sessions are nonsense!"</p><div class="qa-a"><p>Agree with them — because touchy-feely sessions <em>are</em> nonsense, and that's not what this is. This is about faster, better decisions, keeping your best people, and getting results. Say it plainly: "I hate that stuff too. We're not going to hold hands or catch each other falling off chairs. We're here to work."</p></div></div>
+
+      <div class="qa-item"><p class="qa-q obj-q">"This is just another flavour of the month."</p><div class="qa-a"><p>The only answer is to prove it false. The leader — more than any facilitator — has to make clear there's nowhere to hide, and then actually follow through. If the fear of lost momentum won't move a leader, the prospect of lost credibility should.</p></div></div>
+
+      <div class="qa-item"><p class="qa-q obj-q">The hidden one: adrenaline addiction</p><div class="qa-a"><p>Beneath all of these sits a real addiction. Many leaders are so hooked on the rush of urgent demands and runaway schedules that slowing down to think and reflect feels unbearable — which is exactly the thing they most need. Name it out loud. Calling it an addiction makes people stop and listen, at least long enough to commit.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FIELD GUIDE: OBSTACLES -->
+<section class="band">
+  <div class="wrap">
+    <h2>Obstacles to steer around</h2>
+    <p class="sub">Even with the model and the will, specific situations trip teams up. Most have a clear answer — it just takes nerve.</p>
+
+    <div class="qa">
+      <div class="qa-item"><p class="qa-q obs-q">The leader isn't truly committed.</p><div class="qa-a"><p>Leadership is decisive; without it the odds are near zero. But many "uninterested" leaders are merely <em>skeptical</em> — not cynical — or afraid that admitting the need reflects badly on them. Skeptics convert fast once they see this is about improving the business, not a group hug, and once they discover their people are genuinely rooting for them to succeed.</p></div></div>
+
+      <div class="qa-item"><p class="qa-q obs-q">Team members are holding back.</p><div class="qa-a"><p>Passive resistance is a game of chicken — the quiet holdout wants everyone else uncomfortable enough that the leader blinks first. The only cure is to face it head-on, gently but directly: "Fred, you seem checked out — are you uncomfortable with this, or is there something you want us to understand?" To win the convert, you have to overcome your own fear of the awkwardness first.</p></div></div>
+
+      <div class="qa-item"><p class="qa-q obs-q">Someone is dominating the room.</p><div class="qa-a"><p>Start with motive. A naturally talkative extrovert just needs a gentle, repeated nudge to draw others out — a profiling tool gives you a kind way to name it. But if the domination is a strategy to avoid vulnerability or control the session, be more direct, sometimes one-on-one in a break. If nothing shifts after real effort, ask whether they can be a productive member at all.</p></div></div>
+
+      <div class="qa-item"><p class="qa-q obs-q">The team is scattered across locations.</p><div class="qa-a"><p>Co-location is a genuine advantage; distance makes trust, conflict, and accountability harder — but not impossible. Some things simply need to be face-to-face: team-building, major strategy, and the raw work of being vulnerable and holding each other to account. You can't do that over a video link. So commit to getting in the same room regularly — monthly or quarterly — and spend that scarce time on substance, not just socialising.</p></div></div>
+
+      <div class="qa-item"><p class="qa-q obs-q">A top performer won't buy in.</p><div class="qa-a"><p>Great teams are made of great <em>teammates</em>. As painful as it is — especially when the disruptor is your top revenue line — a talented but corrosive member usually has to go, and team performance often jumps the moment they do. Keeping them signals to everyone that the standards are optional. One caveat: do your due diligence first. Some stars have simply never been shown how to be a teammate, and just need a leader to point the way.</p></div></div>
+
+      <div class="qa-item"><p class="qa-q obs-q">Someone reports to two teams.</p><div class="qa-a"><p>The fix is to kill the ambiguity. Ask openly which team takes precedence when the two collide — because one has to. That doesn't stop the person serving both; it just means everyone knows where primary allegiance sits. And the call belongs to the two team leaders (or someone above them), never to the torn person caught in the middle.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="close">
+  <div class="wrap">
+    <p class="part-label" style="color:var(--hero-soft);">The whole model in five breaths</p>
+    <h2>Simple to say. A lifetime to live.</h2>
+    <ul class="oneline">
+      <li><span class="word w1">Trust</span><span class="desc">Be vulnerable. Go first. Drop the armour.</span></li>
+      <li><span class="word w2">Conflict</span><span class="desc">Fight about ideas — openly, and often enough to be uncomfortable.</span></li>
+      <li><span class="word w3">Commitment</span><span class="desc">Disagree, be heard, then commit fully — with total clarity.</span></li>
+      <li><span class="word w4">Accountability</span><span class="desc">Hold each other to the standard, peer to peer.</span></li>
+      <li><span class="word w5">Results</span><span class="desc">Put the team's win above your ego, your title, your turf.</span></li>
+    </ul>
+    <p class="final">None of this needs a genius or a grand strategy. It needs courage, and the discipline to keep choosing the team over yourself — again and again, long after the off-site ends. That's the whole secret. And it's why so few ever claim it.</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>An original, condensed synthesis of the ideas in Patrick Lencioni's <em>Overcoming the Five Dysfunctions of a Team: A Field Guide for Leaders, Managers, and Facilitators</em> — written in plain language as a study companion, not a substitute for the book. For the full stories, exercises, and templates, read the original.</p>
+  </div>
+</footer>
+
+</body>
+</html>
